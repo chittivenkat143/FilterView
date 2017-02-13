@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SearchDrop</string>
+    <string name="str_test_item">Test filter item</string>
+</resources>
