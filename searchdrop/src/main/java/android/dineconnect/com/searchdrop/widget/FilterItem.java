@@ -18,6 +18,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -161,7 +162,7 @@ public class FilterItem extends FrameLayout implements Serializable{
         }
     }
 
-    private void dismiss() {
+    public void dismiss() {
         filterItemListener.onItemRemoved(this);
     }
 
@@ -273,20 +274,24 @@ public class FilterItem extends FrameLayout implements Serializable{
         return ((float)(textBackground.getWidth() / 2+1));
     }
 
-    public float collapsedSize(){
-        return ((float)(viewLeft.getWidth()));
+    public int collapsedSize(){
+        return ((int)(viewLeft.getWidth()));
     }
 
 
     public void removeFromParent(){
-
+        if(getParent() != null){
+            ((ViewGroup)getParent()).removeView(this);
+        }
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-
-
-        return super.onInterceptTouchEvent(ev);
+        if(getParent() instanceof  CollapsedFilterView){
+            return false;
+        }else{
+            return super.onInterceptTouchEvent(ev);
+        }
     }
 
     @Override
